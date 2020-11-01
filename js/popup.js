@@ -24,3 +24,4 @@ document.querySelector('.account-settings form').addEventListener('submit', func
 			chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
 	});
 });
+

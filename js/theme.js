@@ -491,6 +491,11 @@
 			var key;
 			for (key in this[mode]) {
 				this.customStyle(key, this[mode][key]);
+				MetaTheme.sendMessage({
+					type: "customStyle",
+					name: key,
+					value: this[mode][key]
+				});
 			}
 			this.customStyle('mode', mode);
 			this.setColorPickers();
@@ -503,6 +508,11 @@
 				ele.value = custom[n];
 				ele.addEventListener('change', function (e) {
 					MetaTheme.customStyle(this.name, this.value);
+					MetaTheme.sendMessage({
+						type: "customStyle",
+						name: this.name,
+						value: this.value
+					});
 				});
 			});
 			this.fontFamilySelectors.forEach(function (n) {
@@ -520,6 +530,11 @@
 				sel.addEventListener('change', function (e) {
 					var font = MetaTheme.fonts[this.selectedIndex];
 					MetaTheme.customStyle(this.name, font);
+					MetaTheme.sendMessage({
+						type: "customStyle",
+						name: this.name,
+						value: font
+					});
 				});
 			});
 		},
@@ -544,6 +559,11 @@
 						},
 						actionCallback: function (val, e, o) {
 							MetaTheme.customStyle(this.input.name, this.input.value);
+							MetaTheme.sendMessage({
+								type: "customStyle",
+								name: this.input.name,
+								value: this.input.value
+							});
 						}
 					}
 				);
@@ -915,7 +935,8 @@
 			};
 			this.styles['.autocomplete-suggestion:hover'] = {
 				background: this.custom.main_hover_background_color + ' !important'
-			};	
+			};
+			this.removeAttachedCSS();	
 			return this.attachCSS();
 		},
 		removeAttachedCSS: function () {
@@ -948,6 +969,12 @@
 				window.localStorage.setItem('theme', css);
 			}
 		},
+		sendMessage: function (message) {
+			chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+				if (!tabs[0].url || tabs[0].url.match('metacpan'))
+					chrome.tabs.sendMessage(tabs[0].id, message);
+			});
+		}
 	};
 
 	window.MetaTheme = new Theme();

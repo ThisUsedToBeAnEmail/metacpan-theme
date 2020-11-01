@@ -5,7 +5,7 @@
 			"id": "email@lnation.org"
 		}
 	},
-	"version": "1.4",
+	"version": "1.6",
 	"description": "theme meta::cpan to your taste",
 	"permissions": ["activeTab", "declarativeContent", "storage" ],
 	"content_scripts": [
