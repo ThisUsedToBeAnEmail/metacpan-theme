@@ -20,7 +20,7 @@ document.querySelector('.account-settings form').addEventListener('submit', func
 	chrome.storage.sync.set({"theme": JSON.stringify(MetaTheme.custom)});
 	window.localStorage.setItem('theme', JSON.stringify(MetaTheme.custom));
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		if (tabs[0].url.match('metacpan'))
+		if (!tabs[0].url || tabs[0].url.match('metacpan'))
 			chrome.tabs.update(tabs[0].id, {url: tabs[0].url});
 	});
 });
