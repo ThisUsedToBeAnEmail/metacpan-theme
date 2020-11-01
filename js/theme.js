@@ -497,12 +497,9 @@
 		},
 		setFontFields: function () {
 			var custom = this.custom;
-			console.log(custom);
 			this.fontSizeSelectors.forEach(function (n) {
 				var sel = 'input[name="' + n + '"]';
-				console.log(sel);
 				var ele = document.querySelector(sel);
-				console.log(ele);
 				ele.value = custom[n];
 				ele.addEventListener('change', function (e) {
 					MetaTheme.customStyle(this.name, this.value);

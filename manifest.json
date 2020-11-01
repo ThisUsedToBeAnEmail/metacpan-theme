@@ -1,6 +1,6 @@
 {
 	"name": "meta::cpan::theme",
-	"version": "1.0",
+	"version": "1.01",
 	"description": "theme meta::cpan to your taste",
 	"permissions": ["activeTab", "declarativeContent", "storage" ],
 	"content_scripts": [
