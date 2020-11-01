@@ -73,6 +73,7 @@
 			'secondary_font_color',
 			'nav_background_color',
 			'nav_border_color',
+			'nav_header_font_color',
 			'nav_font_color',
 			'nav_selected_color',
 			'nav_selected_font_color',
@@ -97,6 +98,15 @@
 			'btn_hover_background_color',
 			'link_font_color',
 			'link_hover_font_color',
+			'pagination_background_color',
+			'pagination_font_color',
+			'pagination_border_color',
+			'pagination_selected_background_color',
+			'pagination_selected_font_color',
+			'pagination_selected_border_color',
+			'pagination_disabled_background_color',
+			'pagination_disabled_font_color',
+			'pagination_disabled_border_color',
 		        'syntax_keyword_color',
 			'syntax_plain_color',
 			'syntax_functions_color',
@@ -168,6 +178,7 @@
 			secondary_font_color: '#dadada',
 			nav_background_color: '#1f2225',
 			nav_border_color: '#292c2f',
+			nav_header_font_color: '#999',
 			nav_font_color: '#dadada',
 			nav_selected_color: '#333639',
 			nav_side_selected_color: '#1f2226',
@@ -192,6 +203,15 @@
 			btn_hover_background_color: '#14181b',
 			link_font_color: '#ffffff',
 			link_hover_font_color: '#fcfcfc',
+			pagination_background_color: '#1f2225',
+			pagination_font_color: '#dadada',
+			pagination_border_color: '#292c2f',
+			pagination_selected_background_color: '#dadada',
+			pagination_selected_font_color: '#1f2225',
+			pagination_selected_border_color: '#292c2f',
+			pagination_disabled_background_color: '#14181b',
+			pagination_disabled_font_color: '#dadada',
+			pagination_disabled_border_color: '#292c2f',
 		        syntax_keyword_color: '#8fc9e6',
 			syntax_plain_color: '#dadada',
 			syntax_functions_color: '#8fc9e6',
@@ -263,6 +283,7 @@
 			secondary_font_color: '#333333',
 			nav_background_color: '#f8f8f8',
 			nav_border_color: '#e7e7e7',
+			nav_header_font_color: '#999',
 			nav_font_color: '#3366cc',
 			nav_selected_color: '#ffffff',
 			nav_side_selected_color: '#337ab7',
@@ -287,6 +308,15 @@
 			btn_hover_background_color: '#e6e6e6',
 			link_font_color: '#337ab7',
 			link_hover_font_color: '#23527c',	
+			pagination_background_color: '#ffffff',
+			pagination_font_color: '#337ab7',
+			pagination_border_color: '#dddddd',
+			pagination_selected_background_color: '#337ab7',
+			pagination_selected_font_color: '#ffffff',
+			pagination_selected_border_color: '#337ab7',
+			pagination_disabled_background_color: '#ffffff',
+			pagination_disabled_font_color: '#777777',
+			pagination_disabled_border_color: '#dddddd',
 		        syntax_keyword_color: '#006699',
 			syntax_plain_color: '#000',
 			syntax_functions_color: '#ff1493',
@@ -448,7 +478,11 @@
 			'.autocomplete-suggestions': {},
 			'.autocomplete-suggestions strong': {},
 			'div.autocomplete-suggestions div:nth-child(2n+2)': {},
-			'.autocomplete-suggestion:hover': {}
+			'.autocomplete-suggestion:hover': {},
+			'.nav-header': {},
+			'.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus': {},
+			'.pagination > li > a, .pagination > li > span': {},
+			'.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus': {}
 		},
 		load: function (theme) {
 			var cb = function (theme) {
@@ -935,6 +969,24 @@
 			};
 			this.styles['.autocomplete-suggestion:hover'] = {
 				background: this.custom.main_hover_background_color + ' !important'
+			};
+			this.styles['.nav-header'] = {
+				color: this.custom.nav_header_font_color
+			};
+			this.styles['.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus'] = {
+				background: this.custom.pagination_disabled_background_color,
+				color: this.custom.pagination_disabled_font_color,
+				'border-color': this.custom.pagination_disabled_border_color
+			};
+			this.styles['.pagination > li > a, .pagination > li > span'] = {
+				background: this.custom.pagination_background_color,
+				color: this.custom.pagination_font_color,
+				'border-color': this.custom.pagination_border_color
+			};
+			this.styles['.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus'] = {
+				background: this.custom.pagination_selected_background_color,
+				color: this.custom.pagination_selected_font_color,
+				'border-color': this.custom.pagination_selected_border_color
 			};
 			this.removeAttachedCSS();	
 			return this.attachCSS();
