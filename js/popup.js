@@ -17,7 +17,6 @@ document.querySelector('input#toggle_all').addEventListener('change', function (
 });
 
 document.querySelector('.account-settings form').addEventListener('submit', function (evt) {	
-	evt.preventDefault();
 	chrome.storage.sync.set({"theme": JSON.stringify(MetaTheme.custom)});
 	window.localStorage.setItem('theme', JSON.stringify(MetaTheme.custom));
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
