@@ -1,6 +1,11 @@
 {
 	"name": "meta::cpan::theme",
-	"version": "1.01",
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "email@lnation.org"
+		}
+	},
+	"version": "2",
 	"description": "theme meta::cpan to your taste",
 	"permissions": ["activeTab", "declarativeContent", "storage" ],
 	"content_scripts": [

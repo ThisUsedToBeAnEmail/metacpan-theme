@@ -8,6 +8,7 @@
 		width: 500px;
 		background-color: #333639;
     		color: #dadada;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	}
 	fieldset {
 		min-width: 0;
@@ -57,6 +58,10 @@
     		line-height: 28px; 
    		height: 28px;
 		box-sizing: border-box;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	}
+	select.form-control {
+		padding: 0 12px;
 	}
 	.cp-app, .cp-app div {
 		border: none;
@@ -150,7 +155,7 @@
 	}
 	.inner i.la.la-chevron-down {
 		position: absolute;
-		right: 2em;
+		right: 0.1em;
 		top: 0;
 	}
 	.inner input:checked ~ label i.la.la-chevron-down {
@@ -164,6 +169,26 @@
 	}
 	.red {
 		color: #da1f37;
+	}
+	.btn.search-btn {
+		color: #dadada;
+		border-color: #14181b;
+		background-color: #292c2f;
+		background-image: linear-gradient(to bottom, rgba(41, 44, 47, 0.5) 0%, rgba(31, 34, 37, 0.8) 100%);
+		text-shadow: 0 1px 1px rgba(91, 94, 97, 0.75);
+		font-size: 15px;
+		line-height: 15px;
+		height: 29px !important;
+		background-repeat: repeat-x;
+		box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
+		margin-bottom: 0;
+		border-radius: 0;
+		padding: 4px 12px;
+	}
+	.btn.search-btn:hover, .btn.search-btn:focus{
+		background: #14181b;
+		text-decoration: none;
+		background-image: none;
 	}
     </style>
 </head>
@@ -1536,7 +1561,7 @@
                         </fieldset>
                     </div>
                 </div>
-            </fieldset><br>
+            </fieldset>
             <input type="submit" value="Save Profile" class=
             "btn btn-large search-btn">
         </form>
