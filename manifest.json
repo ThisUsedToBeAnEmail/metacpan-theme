@@ -5,13 +5,14 @@
 			"id": "email@lnation.org"
 		}
 	},
-	"version": "2",
+	"version": "1.3",
 	"description": "theme meta::cpan to your taste",
 	"permissions": ["activeTab", "declarativeContent", "storage" ],
 	"content_scripts": [
     		{
       			"matches": ["*://*.metacpan.org/*"],
-      			"js": ["js/theme.js", "js/content.js"]
+			"run_at": "document_start",
+ 			"js": ["js/theme.js", "js/content.js"]
     		}
   	],
 	"browser_action": {
