@@ -5,9 +5,9 @@
 			"id": "email@lnation.org"
 		}
 	},
-	"version": "1.7",
+	"version": "1.9",
 	"description": "theme meta::cpan to your taste",
-	"permissions": ["activeTab", "declarativeContent", "storage" ],
+	"permissions": ["activeTab", "storage" ],
 	"content_scripts": [
     		{
       			"matches": ["*://*.metacpan.org/*"],
