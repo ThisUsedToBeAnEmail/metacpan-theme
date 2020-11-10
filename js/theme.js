@@ -7,7 +7,7 @@
 		loaded: false,
 		fonts: [
 			{ name: "'Helvetica Neue', Helvetica, Arial, sans-serif" },
-			{ name: "Menlo, Monaco, 'DejaVu Sans Mono', Consolas, 'Bitstream Vera Sans Mono', Courier, 'Courier New', monospace" },	
+			{ name: "Menlo, Monaco, 'DejaVu Sans Mono', Consolas, 'Bitstream Vera Sans Mono', Courier, 'Courier New', monospace" },
 			{ name: "OpenDyslexic2, OpenDyslexic", otf: "/static/fonts/OpenDyslexic-Regular.otf" },
 			{ name: "Montez", url: "https://fonts.googleapis.com/css?family=Montez" },
 			{ name: "Lobster", url: "https://fonts.googleapis.com/css?family=Lobster" },
@@ -15,7 +15,7 @@
 			{ name: "Shadows Into Light", url: "https://fonts.googleapis.com/css?family=Shadows+Into+Light"},
 			{ name: "Pacifico", url: "https://fonts.googleapis.com/css?family=Pacifico" },
 			{ name: "Amatic SC", url: "https://fonts.googleapis.com/css?family=Amatic+SC" },
-			{ name: "Orbitron",  url: "https://fonts.googleapis.com/css?family=Orbitron" }, 
+			{ name: "Orbitron",  url: "https://fonts.googleapis.com/css?family=Orbitron" },
 			{ name: "Roboto", url: "https://fonts.googleapis.com/css?family=Roboto" },
 			{ name: "Rokkitt", url: "https://fonts.googleapis.com/css?family=Rokkitt" },
 			{ name: "Righteous", url: "https://fonts.googleapis.com/css?family=Righteous" },
@@ -165,6 +165,16 @@
 			'alert_danger_font_color',
 			'alert_danger_link_color'
 		],
+		schemes: [
+			{
+				name: 'Light',
+				value: 'light'
+			},
+			{
+				name: 'Dark',
+				value: 'dark'
+			}
+		],
 		dark: {
 			logo: chrome.runtime.getURL('images/metacpan-logo-light.png'),
 			main_background_color: '#333639',
@@ -307,7 +317,7 @@
 			btn_border_color: '#cccccc #cccccc #b3b3b3',
 			btn_hover_background_color: '#e6e6e6',
 			link_font_color: '#337ab7',
-			link_hover_font_color: '#23527c',	
+			link_hover_font_color: '#23527c',
 			pagination_background_color: '#ffffff',
 			pagination_font_color: '#337ab7',
 			pagination_border_color: '#dddddd',
@@ -426,7 +436,7 @@
 			'.syntaxhighlighter table .gutter .line.highlighted': {},
 			'.syntaxhighlighter table .gutter .line': {},
 			'.irc-chat:after': {},
-			'input.form-control.tool-bar-form, select.form-control.tool-bar-form': {},	
+			'input.form-control.tool-bar-form, select.form-control.tool-bar-form': {},
 			'input.form-control.tool-bar-form:focus, select.form-control.tool-bar-form:focus': {},
 			'#index-container .index-border': {},
 			'.content .release-documentation div.release-row:nth-of-type(even), .content .release-modules div.release-row:nth-of-type(even), .content .release-provides div.release-row:nth-of-type(even)': {},
@@ -482,7 +492,8 @@
 			'.nav-header': {},
 			'.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus': {},
 			'.pagination > li > a, .pagination > li > span': {},
-			'.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus': {}
+			'.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus': {},
+			'.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus': {}
 		},
 		load: function (theme) {
 			var cb = function (theme) {
@@ -521,6 +532,20 @@
 				}
 			}, 200);
 		},
+		switchTheme: function (theme) {
+			var key;
+			for (key in theme) {
+				this.customStyle(key, theme[key]);
+				MetaTheme.sendMessage({
+					type: "customStyle",
+					name: key,
+					value: theme[key]
+				});
+			}
+			this.setFontFields();
+                        this.setModeField();
+			this.setColorPickers();
+		},
 		switchMode: function (mode) {
 			var key;
 			for (key in this[mode]) {
@@ -551,10 +576,11 @@
 			});
 			this.fontFamilySelectors.forEach(function (n) {
 				var sel = document.querySelector('select[name="' + n + '"]');
+				sel.innerHTML = '';
 				MetaTheme.fonts.forEach(function (f) {
 					var selected = f.name === custom[n].name ? true : false;
 					var opt = new Option(
-						f.name, 
+						f.name,
 						f.name,
 						selected,
 						selected
@@ -573,8 +599,23 @@
 			});
 		},
 		setModeField: function () {
-			if (MetaTheme.custom.mode === 'dark') 
-				document.querySelector('input[name="dark_mode"]').checked = true;
+			var sel = document.querySelector('select[name="base_scheme"]');
+			sel.innerHTML = '';
+			var custom = MetaTheme.custom;
+			MetaTheme.schemes.forEach(function (f) {
+				var selected = f.value === custom.mode ? true : false;
+				var opt = new Option(
+					f.name,
+					f.value,
+					selected,
+					selected
+				);
+				sel.appendChild(opt);
+			});
+			sel.addEventListener('change', function () {
+				var mode = this.value;
+				MetaTheme.switchMode(mode);
+			});
 		},
 		setColorPickers: function (mode) {
 			var custom = this.custom;
@@ -587,7 +628,7 @@
 					sel,
 					{
 						customBG: '#222',
-						init: function (elm, colors) {   
+						init: function (elm, colors) {
 							elm.style.backgroundColor = elm.value;
 							elm.style.color = colors.rgbaMixCustom.luminance > 0.22 ? '#222' : '#ddd'
 						},
@@ -609,7 +650,7 @@
 		setFontSheet: function (id) {
 			var font = this.custom[id];
 			var fscript = document.querySelector('head #' + id);
-			if (fscript && (!font.url || font.url !== fscript.href)) 
+			if (fscript && (!font.url || font.url !== fscript.href))
 				fscript.parentNode.removeChild(fscript);
 			if (font.url) {
 				fscript = document.createElement('link');
@@ -622,7 +663,7 @@
 		},
 		buildCSS: function () {
 			this.setFontSheet('body_font_family');
-			if ( this.custom.body_font_family.name !== this.custom.syntax_font_family.name ) 
+			if ( this.custom.body_font_family.name !== this.custom.syntax_font_family.name )
 				this.setFontSheet('syntax_font_family');
 			this.styles.body = {
 				'background-color': this.custom.main_background_color,
@@ -663,7 +704,7 @@
 				'border-color': this.custom.input_border_color,
 				'font-size': this.custom.input_font_size + 'px !important',
 				'line-height': inputHeight,
-				'height': inputHeight, 
+				'height': inputHeight,
 			};
 			this.styles['textarea.form-control'] = {
 				'color': this.custom.input_font_color,
@@ -673,7 +714,7 @@
 				'line-height': inputHeight,
 			};
 			this.styles['input.form-control.tool-bar-form, select.form-control.tool-bar-form'] = {
-				'color': this.custom.input_font_color,		
+				'color': this.custom.input_font_color,
 				'background': this.custom.input_background_color,
 				'border-color': this.custom.input_border_color,
 				'font-size': this.custom.input_font_size + 'px',
@@ -717,6 +758,9 @@
 			this.styles['.nav-stacked > li > a']['color'] = this.custom.nav_font_color;
 			this.styles['.nav > li > a:hover, .nav > li > a:focus'] = {
 				'background': this.custom.nav_side_hover_background_color,
+				'color': this.custom.nav_hover_font_color
+			};
+			this.styles['.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus'] = {
 				'color': this.custom.nav_hover_font_color
 			};
 			this.styles['.author-pic > a > img'] = {
@@ -886,7 +930,7 @@
 				'border-top-color': this.custom.nav_font_color
 			};
 			this.styles['.navbar .nav li.dropdown.open .dropdown-menu'] = {
-   	 			'background': this.custom.nav_selected_color, 
+   	 			'background': this.custom.nav_selected_color,
     				'border-color': this.custom.nav_border_color,
 				'font-size': this.custom.body_font_size + 'px',
 			};
@@ -897,7 +941,7 @@
     				'background-color': this.custom.nav_selected_color,
 				'color': this.custom.nav_selected_font_color,
 				'border-color': this.custom.nav_border_color,
-				'box-shadow':'inset -1px 0px 0 ' +  this.custom.nav_box_shadow_color 
+				'box-shadow':'inset -1px 0px 0 ' +  this.custom.nav_box_shadow_color
 					+ ', inset 1px 0px 0 ' +  this.custom.nav_box_shadow_color
 			};
 			this.styles['.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus'] = {
@@ -988,7 +1032,7 @@
 				color: this.custom.pagination_selected_font_color,
 				'border-color': this.custom.pagination_selected_border_color
 			};
-			this.removeAttachedCSS();	
+			this.removeAttachedCSS();
 			return this.attachCSS();
 		},
 		removeAttachedCSS: function () {
@@ -997,7 +1041,7 @@
 		},
 		attachCSS: function (styles, returnString) {
 			if (!styles) styles = this.styles;
-			var css = "", key;			
+			var css = "", key;
 			for (key in styles) {
 				css += key + " {";
 				var props = styles[key], prop;
