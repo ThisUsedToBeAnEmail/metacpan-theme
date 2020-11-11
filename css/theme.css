@@ -228,7 +228,7 @@ form#fonts_form, form#colours_form, div#themes_section {
 	position: relative;
 	height: 85vh;
 	overflow: hidden;
-	padding: 0 0 1em 0;
+	margin: 0 0 1em 0;
 }
 
 #fonts:checked ~ .forms form#fonts_form, #colours:checked ~ .forms form#colours_form, #themes:checked ~ .forms div#themes_section, #export:checked ~ .forms form#export_form   {

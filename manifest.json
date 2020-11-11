@@ -5,7 +5,7 @@
 			"id": "email@lnation.org"
 		}
 	},
-	"version": "2.0",
+	"version": "2.1",
 	"description": "theme meta::cpan to your taste",
 	"permissions": ["activeTab", "storage" ],
 	"options_ui": {
@@ -36,6 +36,8 @@
 	},
 	"web_accessible_resources": [
 		"images/metacpan-logo.png",
+		"images/metacpan-logo-solarize-dark.png",
+		"images/metacpan-logo-solarize-light.png",
 		"images/metacpan-logo-light.png",
 		"images/metacpan-logo.png",
 		"images/meta-48.png"

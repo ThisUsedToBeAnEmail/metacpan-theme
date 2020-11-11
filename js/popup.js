@@ -178,7 +178,7 @@
 		});
 	});
 
-	document.querySelectorAll('form#fonts_form, form#colours_form').forEach(function (f) {
+	document.querySelectorAll('form#fonts_form, form#colours_form, form#export_form').forEach(function (f) {
 		f.addEventListener('submit', function (evt) { pu.saveTheme(evt) });
 	});
 
