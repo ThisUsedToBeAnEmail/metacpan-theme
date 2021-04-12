@@ -711,7 +711,10 @@
 			'.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus': {},
 			'.pagination > li > a, .pagination > li > span': {},
 			'.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus': {},
-			'.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus': {}
+			'.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus': {},
+			'.modal-content': {},
+			'.modal-header': {},
+			'.modal-footer': {}
 		},
 		load: function (theme) {
 			var cb = function (theme) {
@@ -1250,6 +1253,16 @@
 				color: this.custom.pagination_selected_font_color,
 				'border-color': this.custom.pagination_selected_border_color
 			};
+			this.styles['.modal-content'] = {
+    				background: this.custom.main_background_color
+			};
+			this.styles['.modal-header'] = {
+				'border-color': this.custom.main_border_color
+			};
+			this.styles['.modal-footer'] = {
+				'border-color': this.custom.main_border_color
+			};
+			console.log(this.styles);
 			this.removeAttachedCSS();
 			return this.attachCSS();
 		},
