@@ -714,7 +714,8 @@
 			'.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus': {},
 			'.modal-content': {},
 			'.modal-header': {},
-			'.modal-footer': {}
+			'.modal-footer': {},
+			'.well': {}
 		},
 		load: function (theme) {
 			var cb = function (theme) {
@@ -1019,8 +1020,6 @@
 			this.styles['body .syntaxhighlighter .container .pod-line'] = {
 				'background-color': this.custom.main_background_color + ' !important',
 				'border-color': this.custom.main_border_color + ' !important',
-				'background-color': this.custom.btn_background_color + ' !important',
-				'border-color': this.custom.btn_border_color + ' !important'
 			};
 			this.styles['.pod-placeholder .btn-link']['color'] = this.custom.link_font_color + ' !important';
 			this.styles['.pod-placeholder .btn-link:hover']['color'] = this.custom.link_hover_font_color + ' !important';
@@ -1261,6 +1260,11 @@
 			};
 			this.styles['.modal-footer'] = {
 				'border-color': this.custom.main_border_color
+			};
+			this.styles['.well'] = {
+				background: this.custom.secondary_background_color,
+				color: this.custom.secondary_font_color,
+				border: this.custom.main_border_color
 			};
 			console.log(this.styles);
 			this.removeAttachedCSS();
