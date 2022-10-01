@@ -322,7 +322,7 @@
 			main_login_color: '#da2037',
 			secondary_background_color: '#3d4043',
 			secondary_font_color: '#dadada',
-			secondary_border_color: '#dadada',
+			secondary_border_color: '#3d4043',
 			footer_background_color: '#3d4043',
 			footer_font_color: '#dadada',
 			nav_background_color: '#1f2225',
@@ -1147,6 +1147,19 @@
 			},
 			".close:hover, .close:focus": {
 				"color": "var(--link_hover_font_color)"
+			},
+			".pod-errors": {
+				"background-color": "var(--alert_warning_background_color)",
+				"color": "var(--alert_warning_font_color)",
+				"border-color": "var(--alert_warning_border_color)"
+			},
+			".pod-errors > p:first-child": {
+				"color": "var(--danger_background_color)"
+			},
+			".well": {
+				"background-color": "var(--secondary_background_color)",
+				"border-color": "var(--secondary_border_color)",
+				"color": "var(--secondary_font_color)"
 			}
 		},
 		load: function (theme) {
