@@ -5,7 +5,7 @@
 			"id": "email@lnation.org"
 		}
 	},
-	"version": "2.3",
+	"version": "2.4",
 	"description": "theme meta::cpan to your taste",
 	"permissions": ["activeTab", "storage" ],
 	"options_ui": {
@@ -19,7 +19,7 @@
  			"js": ["js/theme.js", "js/content.js"]
     		}
   	],
-	"browser_action": {
+	"action": {
 		"default_popup": "theme.html",
 		"default_icon": {
 			"16": "images/meta-16.png",
@@ -34,13 +34,17 @@
 		"48": "images/meta-48.png",
 		"128": "images/meta-128.png"
 	},
-	"web_accessible_resources": [
-		"images/metacpan-logo.png",
-		"images/metacpan-logo-solarize-dark.png",
-		"images/metacpan-logo-solarize-light.png",
-		"images/metacpan-logo-light.png",
-		"images/metacpan-logo.png",
-		"images/meta-48.png"
-	],
-	"manifest_version": 2
+	"web_accessible_resources": [{
+		"resources": [
+			"images/metacpan-white-logo.png",
+			"images/metacpan-logo.png",
+			"images/metacpan-logo-solarize-dark.png",
+			"images/metacpan-logo-solarize-light.png",
+			"images/metacpan-logo-light.png",
+			"images/metacpan-logo.png",
+			"images/meta-48.png"
+		],
+		"matches": ["*://*.metacpan.org/*"]
+	}],
+	"manifest_version": 3
 }
