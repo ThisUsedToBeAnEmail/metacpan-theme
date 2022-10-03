@@ -1173,7 +1173,6 @@
 		load: function (theme) {
 			var cb = function (theme) {
 				if (theme) {
-					console.log(theme);
 					let key;
 					if (!theme.new_version) {
 						for (key in MetaTheme.fontDefaults) {
@@ -1277,7 +1276,6 @@
 				});
 				sel.addEventListener('change', function (e) {
 					var font = MetaTheme.fonts[this.selectedIndex];
-					console.log(font);
 					MetaTheme.customStyle(this.name, font);
 					MetaTheme.sendMessage({
 						type: "customStyle",
@@ -1289,7 +1287,6 @@
 		},
 		setThemeOptions: function () {
 			let width = document.querySelector('input[name="full_width_mode"]');
-			console.log(width);
 			width.checked = this.custom.full_width_mode ? true : false;
 			width.addEventListener('change', function () {
 				let c = this.checked ? true : false;
@@ -1351,9 +1348,7 @@
 			this.custom[key] = value;
 		},
 		setFontSheet: function (id) {
-			console.log(id, this);
 			var font = this.custom[id];
-			console.log(font);
 			var fscript = document.querySelector('head #' + id);
 			if (fscript && (!font.url || font.url !== fscript.href))
 				fscript.parentNode.removeChild(fscript);
@@ -1367,7 +1362,6 @@
 			}
 		},
 		buildCSS: function () {
-			console.log(this.custom);
 			this.setFontSheet('body_font_family');
 			if ( this.custom.body_font_family.name !== this.custom.syntax_font_family.name )
 				this.setFontSheet('syntax_font_family');
