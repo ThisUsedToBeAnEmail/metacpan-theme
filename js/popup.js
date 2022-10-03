@@ -50,6 +50,7 @@
 			} else {
 				MetaTheme.load();
 			}
+			MetaTheme.setThemeOptions();
 			MetaTheme.setFontFields();
 			MetaTheme.setModeField();
 			MetaTheme.setColorPickers();

@@ -337,6 +337,17 @@ input.btn.btn-large.search-btn {
 	background-image: none;
 }
 
+label.checkbox-field {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: flex-start;
+}
+
+label.checkbox-field input {
+    margin-right: 0.5em;
+}
+
 @media screen and (max-width: 500px) {
 	.forms {
 		height: 500px;

@@ -308,7 +308,6 @@
 			alert_danger_border_color: '#ebccd1',
 			alert_danger_link_color: '#337ab7'
 		},
-
 		dark: {
 			header_logo: 'url(' + chrome.runtime.getURL('images/metacpan-logo-light.png') + ')',
 			logo: 'url(' + chrome.runtime.getURL('images/metacpan-logo-light.png') + ')',
@@ -847,7 +846,8 @@
 			},
 			".nav-list-container.slidepanel": {
 				"background": "var(--nav_side_background_color)",
-				"color": "var(--nav_side_font_color)"
+				"color": "var(--nav_side_font_color)",
+				"border-color": "var(--nav_border_color)"
 			},
 			".navbar-default .menu-items li a": {
 				"color": "var(--nav_font_color) !important"
@@ -1160,6 +1160,14 @@
 				"background-color": "var(--secondary_background_color)",
 				"border-color": "var(--secondary_border_color)",
 				"color": "var(--secondary_font_color)"
+			},
+			".content .release-documentation div.release-row:nth-of-type(even), .content .release-modules div.release-row:nth-of-type(even), .content .release-provides div.release-row:nth-of-type(even)": {
+			    "background-color": "var(--secondary_background_color)",
+			    "color": "var(--secondary_font_color)"
+			},
+			".author-pic img": {
+			    "box-shadow": "1px px 5px var(--main_box_shadow_color)",
+			    "-webkit-box-shadow": "2px 2px 5px var(--main_box_shadow_color)"
 			}
 		},
 		load: function (theme) {
@@ -1183,9 +1191,9 @@
 					}
 				} else {
 					var key;
-					MetaTheme.customStyle('mode', 'light');
-					for (key in MetaTheme.light) {
-						MetaTheme.customStyle(key, MetaTheme.light[key]);
+					MetaTheme.customStyle('mode', 'default');
+					for (key in MetaTheme.default) {
+						MetaTheme.customStyle(key, MetaTheme.default[key]);
 					}
 					for (key in MetaTheme.fontDefaults) {
 						MetaTheme.customStyle(key, MetaTheme.fontDefaults[key]);
@@ -1221,6 +1229,7 @@
 					value: theme[key]
 				});
 			}
+			this.setThemeOptions();
 			this.setFontFields();
 			this.setModeField();
 			this.setColorPickers();
@@ -1275,6 +1284,20 @@
 						name: this.name,
 						value: font
 					});
+				});
+			});
+		},
+		setThemeOptions: function () {
+			let width = document.querySelector('input[name="full_width_mode"]');
+			console.log(width);
+			width.checked = this.custom.full_width_mode ? true : false;
+			width.addEventListener('change', function () {
+				let c = this.checked ? true : false;
+				MetaTheme.customStyle(this.name, c);
+				MetaTheme.sendMessage({
+					type: 'customStyle',
+					name: this.name,
+					value: c
 				});
 			});
 		},
@@ -1344,10 +1367,17 @@
 			}
 		},
 		buildCSS: function () {
+			console.log(this.custom);
 			this.setFontSheet('body_font_family');
 			if ( this.custom.body_font_family.name !== this.custom.syntax_font_family.name )
 				this.setFontSheet('syntax_font_family');
-			console.log(this.styles);
+			
+			if (this.custom.full_width_mode == true) {
+				this.styles['.content, .breadcrumbs'] = { "max-width": "100%" };
+			} else {
+				delete this.styles['.content, .breadcrumbs'];
+			}
+
 			for (let key in this.custom) {
 				if ( key == 'body_font_family' || key == 'syntax_font_family' ) {
 					this.styles[':root']['--' + key] = this.custom[key].name;
