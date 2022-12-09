@@ -844,7 +844,7 @@
 				"background-color": "var(--secondary_background_color)",
 				"color": "var(--secondary_font_color)"
 			},
-			".nav-list-container.slidepanel": {
+			".nav-list-container.slidepanel, .sidebar": {
 				"background": "var(--nav_side_background_color)",
 				"color": "var(--nav_side_font_color)",
 				"border-color": "var(--nav_border_color)"
