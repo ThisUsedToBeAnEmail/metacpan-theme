@@ -338,14 +338,24 @@ input.btn.btn-large.search-btn {
 }
 
 label.checkbox-field {
-    display: flex;
-    align-items: center;
-    align-content: center;
-    justify-content: flex-start;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: flex-start;
 }
 
 label.checkbox-field input {
-    margin-right: 0.5em;
+	margin-right: 0.5em;
+}
+
+.form-horizontal:-webkit-scrollbar,
+div#themes_section:-webkit-scrollbar {
+	display: none;
+}
+
+.form-horizontal, div#themes_section {
+	-ms-overflow-style: none;
+	scrollbar-width: none;  /* Firefox */
 }
 
 @media screen and (max-width: 500px) {

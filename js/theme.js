@@ -40,6 +40,7 @@
 		],
 		fontSizeSelectors: [
 			'body_font_size',
+			'syntax_font_size',
 			'input_font_size',
 			'h1_font_size',
 			'h2_font_size',
@@ -52,6 +53,7 @@
 			'body_font_family': { name: "'Helvetica Neue', Helvetica, Arial, sans-serif" },
 			'syntax_font_family': { name: "Menlo, Monaco, 'DejaVu Sans Mono', Consolas, 'Bitstream Vera Sans Mono', Courier, 'Courier New', monospace" },
 			'body_font_size': '15',
+			'syntax_font_size': '15',
 			'input_font_size': '14',
 			'h1_font_size': '39',
 			'h2_font_size': '32',
@@ -210,7 +212,7 @@
 			secondary_border_color: '#cccccc',
 			footer_background_color: '#e9e9e9',
 			footer_font_color: '#333333',	
-			nav_background_color: '#222222',
+			nav_background_color: '#222',
 			nav_border_color: '#222222',
 			nav_header_font_color: '#999',
 			nav_font_color: '#ffffff',
@@ -793,10 +795,10 @@
 			"h6, .h6": {
 				"font-size": "var(--h6_font_size)"
 			},
-			'.header-logo-large img': {
-				"background-image": "var(--header_logo)",
-				"object-position": "-9999999999px -99999999px",
-				"background-size": "100%"
+			'.header-logo-large .logo': {
+				"background": "var(--header_logo)",
+				"background-size": "var(--header_logo_size)",
+    				"background-repeat": "no-repeat"
 			},
 			".home .hero-logo img, .footer-logo img":  {
 				"background-image": "var(--logo)",
@@ -904,10 +906,11 @@
 			".author-results li": {
 					"border-color": "var(--main_border_color)"
 			},
-			".pod pre, pre": {
-				"background-color": "var(--secondary_background_color)",
-				"border-color": "var(--secondary_border_color)",
-				"font-family": "var(--syntax_font_family)",
+			".pod pre, pre, .syntaxhighlighter table td.code": {
+				"background-color": "var(--secondary_background_color) !important",
+				"border-color": "var(--secondary_border_color) !important",
+				"font-family": "var(--syntax_font_family) !important",
+				"font-size": "var(--syntax_font_size) !important"
 			},
 			"body .syntaxhighlighter .gutter .pod-line, body .syntaxhighlighter .pod-line:last-child": {
 				"background-color": "var(--main_background_color) !important",
@@ -1162,12 +1165,20 @@
 				"color": "var(--secondary_font_color)"
 			},
 			".content .release-documentation div.release-row:nth-of-type(even), .content .release-modules div.release-row:nth-of-type(even), .content .release-provides div.release-row:nth-of-type(even)": {
-			    "background-color": "var(--secondary_background_color)",
-			    "color": "var(--secondary_font_color)"
+				"background-color": "var(--secondary_background_color)",
+				"color": "var(--secondary_font_color)"
 			},
 			".author-pic img": {
-			    "box-shadow": "1px px 5px var(--main_box_shadow_color)",
-			    "-webkit-box-shadow": "2px 2px 5px var(--main_box_shadow_color)"
+				"box-shadow": "1px px 5px var(--main_box_shadow_color)",
+				"-webkit-box-shadow": "2px 2px 5px var(--main_box_shadow_color)"
+			},
+			".top-notify-banner": {
+				"background-color": "var(--primary_background_color)",
+				"border-color": "var(--primary_border_color)",
+				"color": "var(--primary_font_color)",
+			},
+			".top-notify-banner a": {
+				"color": "var(--link_font_color)"
 			}
 		},
 		load: function (theme) {
@@ -1248,6 +1259,7 @@
 		},
 		setFontFields: function () {
 			var custom = this.custom;
+			if (!custom.syntax_font_size) custom.syntax_font_size = 15;
 			this.fontSizeSelectors.forEach(function (n) {
 				var sel = 'input[name="' + n + '"]';
 				var ele = document.querySelector(sel);
@@ -1386,6 +1398,8 @@
 		},
 		attachCSS: function (styles, returnString) {
 			if (!styles) styles = this.styles;
+			document.querySelector('svg.logo .logo').setAttribute('href', '');
+			styles[':root']['--header_logo_size'] = (styles[':root']['--mode'] == 'default') ? '100% 35px' : '100% 57px';
 			var css = "", key;
 			for (key in styles) {
 				css += key + " {";
